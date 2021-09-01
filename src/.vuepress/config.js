@@ -11,7 +11,15 @@ module.exports = {
       {
         title: "内置函数",
         path: "/built-in-functions/",
-        children: ["/built-in-functions/min"],
+        children: [
+          "/built-in-functions/trigonometry",
+          "/built-in-functions/exponential",
+          "/built-in-functions/common",
+          "/built-in-functions/geometric",
+          "/built-in-functions/matrix",
+          "/built-in-functions/vector",
+          "/built-in-functions/texture",
+        ],
       },
     ],
   },
