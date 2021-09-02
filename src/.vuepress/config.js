@@ -1,13 +1,18 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  base: '/webgl-notes/',
+  base: "/webgl-notes/",
   title: "WebGL Notes",
   description: "WebGL学习、开发笔记",
-  dest: path.resolve(__dirname, '../../docs'),
+  dest: path.resolve(__dirname, "../../docs"),
   themeConfig: {
     sidebar: [
       "/",
+      {
+        title: "着色器程序示例",
+        path: "/shader-demos",
+        children: ["/shader-demos/01"],
+      },
       {
         title: "内置函数",
         path: "/built-in-functions/",
@@ -22,5 +27,12 @@ module.exports = {
         ],
       },
     ],
+  },
+  chainWebpack(config) {
+    config.module
+      .rule("shader")
+      .test(/\.(frag|vert)$/)
+      .use("raw")
+      .loader("raw-loader");
   },
 };
