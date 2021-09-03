@@ -15,7 +15,7 @@ import {
   PlaneBufferGeometry,
   Mesh,
   ShaderMaterial,
-  UniformsUtils
+  UniformsUtils,
 } from "three";
 
 export default {
@@ -39,6 +39,11 @@ export default {
 
     this.renderLoop();
   },
+  beforeDestroy() {
+    if (this.frameId !== undefined) {
+      cancelAnimationFrame(this.frameId);
+    }
+  },
   methods: {
     resize() {
       const { width, height } = this.$refs.container.getBoundingClientRect();
@@ -55,25 +60,26 @@ export default {
       );
       const material = new ShaderMaterial({
         ...this.options,
+        uniformsNeedUpdate: true,
         uniforms: UniformsUtils.merge([
           {
             u_Resolution: {
-              value: this.resolution
+              value: this.resolution,
             },
             u_Time: {
               value: 0,
             },
           },
-          this.options.uniforms
-        ])
+          this.options.uniforms,
+        ]),
       });
       this.plane = new Mesh(geometry, material);
       this.scene.add(this.plane);
     },
     renderLoop() {
-      this.plane.material.uniforms['u_Time'].value += 0.01;
+      this.plane.material.uniforms["u_Time"].value += 0.01;
       this.renderer.render(this.scene, this.camera);
-      requestAnimationFrame(this.renderLoop);
+      this.frameId = requestAnimationFrame(this.renderLoop);
     },
   },
 };
