@@ -3,7 +3,7 @@ module.exports = [
   {
     title: "着色器程序示例",
     path: "/shader-demos",
-    children: ["/shader-demos/01", "/shader-demos/02"],
+    children: ["/shader-demos/01", "/shader-demos/02", "/shader-demos/03"],
   },
   {
     title: "内置函数",
